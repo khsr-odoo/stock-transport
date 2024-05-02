@@ -9,3 +9,8 @@ class StockTransportDock(models.Model):
     _description = "Stock Transport Dock"
     
     name = fields.Char(string='Dock')
+    
+    _sql_constraints=[
+        ('uniqui_tag_name','UNIQUE(name)',
+        'Tag names must be unique')
+    ]

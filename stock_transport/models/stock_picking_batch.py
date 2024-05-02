@@ -49,7 +49,7 @@ class StockPickingBatch(models.Model):
             rec.weight=wei
             rec.graph_weight=rec.weight
 
-    @api.depends('computed_volume','vehicle_category')
+    @api.depends('computed_volume','vehicle_category.max_volume')
     def _compute_volume_percent(self):
         for rec in self:
             if rec.vehicle_category.max_volume:
@@ -57,22 +57,22 @@ class StockPickingBatch(models.Model):
             else:
                 rec.volume_percentage=0
 
-    @api.depends('weight','vehicle_category')
+    @api.depends('weight','vehicle_category.max_weight')
     def _compute_weight_percentage(self):
         for rec in self:
             if rec.vehicle_category.max_weight :
                 rec.weight_percentage = (rec.weight/rec.vehicle_category.max_weight)*100
             else:
                 rec.weight_percentage = 0
-                
+
     @api.constrains('computed_volume')
     def _check_volume(self):
         for rec in self:
             if rec.computed_volume>rec.vehicle_category.max_volume:
                 raise ValidationError("User must Enter Volume smaller than Max Volume")
-            
+
     @api.constrains('weight')
     def _check_volume(self):
         for rec in self:
             if rec.weight>rec.vehicle_category.max_weight:
-                raise ValidationError("User must Enter Volume smaller than Max Volume")
+                raise ValidationError("User must Enter Weight smaller than Max Weight")
