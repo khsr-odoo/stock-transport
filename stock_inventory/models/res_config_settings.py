@@ -5,4 +5,4 @@ from odoo.exceptions import UserError
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
     
-    module_stock_transport=fields.Boolean(string='Stock Transport')
+    module_stock_transport=fields.Boolean(string='Dispatch Management System')

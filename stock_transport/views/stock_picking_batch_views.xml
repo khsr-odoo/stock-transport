@@ -22,10 +22,26 @@
             <field name='dock'/>
             <field name='vehicle' placeholder="Third Party Provider"/>
             <field name='vehicle_category' placeholder="Semi-Truck"/>
-            <field name='computed_volume' invisible="not vehicle_category"/>
-            <field name='volume_percentage' widget="progressbar" invisible="not vehicle_category"/>
-            <field name='weight' invisible="not vehicle_category"/>
-            <field name='weight_percentage' widget="progressbar" invisible="not vehicle_category"/>
+                <label for='weight' invisible = "not vehicle_category"/>
+                <div class='d-flex flex-row justify-content-between' invisible = "not vehicle_category">
+                    <div class='d-flex flex-row gap-2'>
+                        <div class='d-flex flex-row gap-1'>
+                            <field name='weight'/>
+                            <span>kg</span>
+                        </div>
+                        <field name='weight_percentage' widget='progressbar' />
+                    </div>
+                </div>
+                <label for='computed_volume' invisible = "not vehicle_category"/>
+                <div class='d-flex flex-row justify-content-between' invisible = "not vehicle_category">
+                    <div class='d-flex flex-row gap-2'>
+                        <div class='d-flex flex-row gap-1'>
+                            <field name='computed_volume'/>
+                            <span>m³</span>
+                        </div>
+                        <field name='volume_percentage' widget='progressbar' />
+                    </div>
+                </div>
         </xpath>
         </field>
     </record>
@@ -38,8 +54,10 @@
             <graph string="Batch Transfer">
                 <field name="scheduled_date" interval="day"/>
                 <field name="vehicle_category"/>  
-                <field name="computed_volume" type="measure"/>
-                <field name="weight" type="measure"/>
+                <field name="graph_volume" type="measure"/>
+                <field name="graph_weight" type="measure"/>
+                <field name='volume_percentage' widget="progressbar" invisible="1"/>
+                <field name='weight_percentage' widget="progressbar" invisible="1"/>
                 <field name="no_transfer" string="Transfers" type="measure"/>
                 <field name="no_line" string="Lines" type="measure"/>              
             </graph>
@@ -60,12 +78,10 @@
             default_group_by="vehicle,vehicle_category">
             <field name="name"/>
             <field name="state"/>
-            <field name="user_id"/>
                 <templates>
                     <div t-name="gantt-popover" class="container-fluid">
                         <field name="name"/>
                         <field name="state"/>
-                        <field name="user_id"/>
                     </div>
                 </templates>
             </gantt>

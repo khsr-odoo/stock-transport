@@ -17,8 +17,3 @@ class StockPicking(models.Model):
                     vol+=(rec.product_id.volume*rec.quantity)
                 record.volume=vol
         return True
-
-# volume =product.product
-# quantity=stock.picking
-# move_line_ids=stock.picking.batch  connecting quantity in stock_move_line o2m
-
